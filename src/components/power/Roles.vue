@@ -151,6 +151,7 @@ export default {
 
       // 获取权限成功
       this.rightsList = res.data;
+      // 用户的3级权限id存储在defKeys中
       this.getLeafKeys(item, this.defKeys)
       // console.log(this.defKeys)
       

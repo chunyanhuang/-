@@ -14,7 +14,7 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse?'64px':'200px'">
-        <!-- unique-opened 每次只开启一个子菜单； collapse-transition 关掉折叠动画 router 开启以id作为hash跳转-->
+        <!-- unique-opened 每次只开启一个子菜单； collapse-transition 关掉折叠动画 router 开启以index作为hash跳转  default-active：当前激活菜单的 index-->
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF"  unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath" >
 
           <!-- 伸缩侧边栏按钮 -->
@@ -106,6 +106,7 @@ export default {
     },
     // 保存当前点击的链接的路由地址
     saveNavState(path){
+      console.log(path)
       window.sessionStorage.setItem('activePath', path);
       this.activePath = path;
     }

@@ -33,14 +33,14 @@
 
       <!-- 分页 -->
         <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="queryInfo.pagenum"
-      :page-sizes="[2, 5, 10, 15]"
-      :page-size="queryInfo.pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="queryInfo.pagenum"
+          :page-sizes="[2, 5, 10, 15]"
+          :page-size="queryInfo.pagesize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
       
       <!-- 添加分类弹出框 -->
       <el-dialog title="添加分类" :visible.sync="addCateDialogVisible" width="50%" @close="addCateDialogClosed">
@@ -51,7 +51,7 @@
             </el-form-item>
              <el-form-item label="父级分类:" >
                <!-- 级联选择框 -->
-               <el-cascader  v-model="selectedKeys" :options="parentCateList" :props="cascaderProps" @change="parentCateChange" change-on-select ></el-cascader>
+               <el-cascader  v-model="selectedKeys" :options="parentCateList" :props="cascaderProps" @change="parentCateChange"  ></el-cascader>
             </el-form-item>
         </el-form>
 
@@ -109,6 +109,7 @@ export default {
         value: 'cat_id',
         label: 'cat_name',
         children: 'children',
+        expandTrigger: 'hover' 
       }
     }
   },
@@ -168,9 +169,9 @@ export default {
     // 当选定了父级分类时触发
     parentCateChange(){
         console.log(this.selectedKeys)
-        // 入股选定了父级分类，
+        // 如果选定了父级分类，
         if(this.selectedKeys.length > 0) {
-          // 将数组最后一项设置为父级分类
+          // 将数组最后一项(二级分类)设置为父级分类
           this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length-1];
           // level也要变换
           this.addCateForm.cat_level = this.selectedKeys.length;
@@ -185,8 +186,8 @@ export default {
           if(!valid) return 
           // 验证成功发送请求
           const {data: res} = await this.$http.post('categories',this.addCateForm);
-          
-          if(res.meta.status != 200) return this.$message.error('添加分类失败');
+          console.log(res)
+          if(res.meta.status != 201) return this.$message.error('添加分类失败');
 
           // 添加分类成功
           this.$message.success('分类添加成功');
@@ -221,5 +222,7 @@ export default {
 
   .el-cascader {
   width: 100%;
+  // height: 300px;
 }
+
 </style>

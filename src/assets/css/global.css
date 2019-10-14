@@ -12,3 +12,15 @@ html,body,#app {
 .el-table {
   margin: 15px 0;
 }
+
+.el-cascader-panel {
+  height: 300px;
+}
+
+.el-step__title {
+  font-size: 12px!important;
+} 
+
+.cell {
+  font-size: 12px;
+}
